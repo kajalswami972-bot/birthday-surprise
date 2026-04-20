@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Protocol: Sachin</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f0c29);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    color: white;
+    overflow: hidden;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Screen */
+.screen { height:100vh; display:none; justify-content:center; align-items:center; flex-direction:column; text-align:center; opacity:0; transition:0.8s; }
+.active { display:flex; opacity:1; }
+
+/* Modern Card */
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    max-width: 80%;
+}
+
+button {
+    margin-top: 25px;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    background: #fff;
+    color: #0f0c29;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+button:hover { transform: scale(1.05); box-shadow: 0 0 20px white; }
+
+/* Gallery */
+.gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; margin-top:20px; }
+.gallery img { width:100px; height:100px; object-fit:cover; border-radius:15px; }
+
+/* Animations */
+.balloon-container { position:relative; width:100%; height:200px; }
+.balloon { width:50px; height:60px; border-radius:50%; position:absolute; bottom:-100px; cursor:pointer; animation:rise 5s infinite ease-in; }
+.balloon:nth-child(1){background:#ff4d6d; left:10%;}
+.balloon:nth-child(2){background:#ff9f1c; left:30%;}
+.balloon:nth-child(3){background:#2ec4b6; left:50%;}
+.balloon:nth-child(4){background:#8338ec; left:70%;}
+.balloon:nth-child(5){background:#3a86ff; left:85%;}
+
+@keyframes rise { 0%{transform:translateY(0);} 100%{transform:translateY(-300px);} }
+
+.pop { animation: popAnim 0.3s forwards; }
+@keyframes popAnim { to { transform: scale(1.5); opacity: 0; } }
+
+/* Letter */
+.letter { display:none; background:white; color:#333; padding:20px; border-radius:15px; margin-top:20px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="screen active" id="s1">
+    <div class="card">
+        <h1>System Update 🚀</h1>
+        <p>Brother.exe has successfully completed another year of annoying me.</p>
+        <button onclick="startExperience()">Initiate Birthday</button>
+    </div>
+</div>
+
+<div class="screen" id="s2">
+    <div class="card">
+        <h2>Loading Personality...</h2>
+        <p id="msg"></p>
+        <button onclick="next('s2','s3')">Continue</button>
+    </div>
+</div>
+
+<div class="screen" id="s3">
+    <div class="card">
+        <h2>Age Check 👴</h2>
+        <p>Official status: Bacha ❌ | Uncle ✅<br>Experience: 24 Years of wasting my time (Just kidding!)</p>
+        <button onclick="next('s3','s4')">Next</button>
+    </div>
+</div>
+
+<div class="screen" id="s4">
+    <div class="card">
+        <h2>Digital Archives 📸</h2>
+        <div class="gallery">
+            <img src="images/image1.jpeg" alt="pic">
+            <img src="images/image2.jpeg" alt="pic">
+            <img src="images/image3.jpeg" alt="pic">
+            <img src="images/image4.jpeg" alt="pic">
+        </div>
+        <button onclick="next('s4','s5')">Next</button>
+    </div>
+</div>
+
+<div class="screen" id="s5">
+    <div class="card">
+        <h2>Confidential Info 💌</h2>
+        <button onclick="openLetter()">Decrypt Message</button>
+        <div class="letter" id="letter">
+            Hey Sachin,<br>
+            You are the person I roast the most,<br>
+            But also the person I trust the most.<br>
+            Stay awesome, stay weird.<br>
+            Treat is pending! 🍕
+        </div>
+        <button onclick="next('s5','s6')">Next</button>
+    </div>
+</div>
+
+<div class="screen" id="s6">
+    <div class="card">
+        <h2>Balloons of Wisdom 🎈</h2>
+        <p id="balloonText"></p>
+        <div class="balloon-container">
+            <div class="balloon" onclick="pop(this)"></div>
+            <div class="balloon" onclick="pop(this)"></div>
+            <div class="balloon" onclick="pop(this)"></div>
+            <div class="balloon" onclick="pop(this)"></div>
+            <div class="balloon" onclick="pop(this)"></div>
+        </div>
+        <button onclick="next('s6','s7')">Next</button>
+    </div>
+</div>
+
+<div class="screen" id="s7">
+    <div class="card">
+        <h1>System Update: Complete 🚀</h1>
+        <p>Patch Note: You're officially a year older, but still the same chaotic energy. Thanks for being the best Admin of my life. <br><br>
+        Error 404: Maturity not found. 😉<br>
+        Keep thriving, keep annoying, and definitely keep the treat ready! 🍕🔥</p>
+        <button onclick="location.reload()">Replay Experience</button>
+    </div>
+</div>
+
+<audio id="music" loop><source src="music/song.mp4" type="audio/mpeg"></audio>
+
+<script>
+    function startExperience(){
+        const audio = document.getElementById("music");
+        audio.play().catch(e => console.log("Audio play blocked until interaction"));
+        next('s1', 's2');
+    }
+
+    function next(a,b){
+        document.getElementById(a).classList.remove("active");
+        document.getElementById(b).classList.add("active");
+        if(b=="s2") type();
+    }
+
+    let text="Initializing... \nTarget: Sachin. \nStatus: Another year of nonsense. \nMessage: Love you, but focus on the party first!";
+    let i=0;
+    function type(){
+        if(i<text.length){
+            document.getElementById("msg").innerHTML+=text[i];
+            i++;
+            setTimeout(type,30);
+        }
+    }
+
+    function openLetter(){
+        document.getElementById("letter").style.display="block";
+    }
+
+    let words=["Legends","are","born","on","this","day!"];
+    let index=0;
+    function pop(el){
+        if(index<words.length) document.getElementById("balloonText").innerHTML+=words[index++]+" ";
+        el.classList.add("pop");
+        setTimeout(()=>el.remove(),300);
+    }
+</script>
+</body>
+</html>

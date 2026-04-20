@@ -1,0 +1,51 @@
+body{
+  margin:0;
+  background:#050509;
+  color:white;
+  font-family:sans-serif;
+  overflow:hidden;
+}
+
+.screen{
+  height:100vh;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+.active{display:flex;}
+
+button{
+  margin-top:20px;
+  padding:10px 25px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(45deg,#ff4d6d,#9d4edd);
+  color:white;
+}
+
+.gallery img{
+  width:120px;
+  margin:10px;
+  border-radius:10px;
+  animation:float 3s infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+.cake{
+  font-size:5rem;
+  cursor:pointer;
+}
+
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
